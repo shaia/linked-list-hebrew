@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+# Install .NET SDK 8.0
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --version 8.0.404 --install-dir $HOME/.dotnet
+rm dotnet-install.sh
+
+# Add to PATH
+export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+export DOTNET_ROOT="$HOME/.dotnet"
+
+# Install .NET Interactive (use latest available version)
+$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive
+
+# Install Jupyter kernels
+$HOME/.dotnet/tools/dotnet-interactive jupyter install
