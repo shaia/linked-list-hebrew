@@ -1,0 +1,15 @@
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db
