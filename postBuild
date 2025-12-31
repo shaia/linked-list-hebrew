@@ -12,7 +12,7 @@ export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
 export DOTNET_ROOT="$HOME/.dotnet"
 
 # Install .NET Interactive
-$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive
+$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive --version 1.0.522801
 
 # Install Jupyter kernels
 $HOME/.dotnet/tools/dotnet-interactive jupyter install
