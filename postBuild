@@ -11,8 +11,8 @@ rm dotnet-install.sh
 export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
 export DOTNET_ROOT="$HOME/.dotnet"
 
-# Install .NET Interactive
-$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive --version 1.0.522801
+# Install .NET Interactive (use latest available version)
+$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive
 
 # Install Jupyter kernels
 $HOME/.dotnet/tools/dotnet-interactive jupyter install
