@@ -1,18 +1,23 @@
 #!/bin/bash
-set -e
+set -ex
 
-# Install .NET SDK 8.0
-wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-chmod +x dotnet-install.sh
-./dotnet-install.sh --version 8.0.404 --install-dir $HOME/.dotnet
-rm dotnet-install.sh
+# Download and install .NET SDK
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0 --install-dir "${HOME}/.dotnet"
 
-# Add to PATH
-export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
-export DOTNET_ROOT="$HOME/.dotnet"
+# Set environment
+export DOTNET_ROOT="${HOME}/.dotnet"
+export PATH="${HOME}/.dotnet:${HOME}/.dotnet/tools:${PATH}"
 
-# Install .NET Interactive (use latest available version)
-$HOME/.dotnet/dotnet tool install -g Microsoft.dotnet-interactive
+# Install .NET Interactive
+"${HOME}/.dotnet/dotnet" tool install -g Microsoft.dotnet-interactive --version 1.0.556101
 
-# Install Jupyter kernels
-$HOME/.dotnet/tools/dotnet-interactive jupyter install
+# Register Jupyter kernels
+"${HOME}/.dotnet/tools/dotnet-interactive" jupyter install
+
+# Create activation script
+mkdir -p "${HOME}/.jupyter"
+cat > "${HOME}/.jupyter/jupyter_notebook_config.py" << 'PYEOF'
+import os
+os.environ["DOTNET_ROOT"] = os.path.expanduser("~/.dotnet")
+os.environ["PATH"] = os.path.expanduser("~/.dotnet") + ":" + os.path.expanduser("~/.dotnet/tools") + ":" + os.environ.get("PATH", "")
+PYEOF
